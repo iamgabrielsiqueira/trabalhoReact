@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, {Component} from 'react';
 import { LinearGradient, Font } from 'expo';
-import {StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Regras extends Component {
 
@@ -36,8 +37,17 @@ export default class Regras extends Component {
     });
   }
 
-  onPress() {
-
+  onPress(val) {
+    switch(val) {
+      case 1:
+        console.log("iniciar");
+        this.props.navigation.navigate('Enigma1');
+      break;
+      case 2:
+        console.log("voltar");
+        this.props.navigation.navigate('Main');
+      break;
+    }
   }
 
   render() {
@@ -49,28 +59,32 @@ export default class Regras extends Component {
 
     return (
       <LinearGradient colors={['#F8EFBA', '#fe8b8a']} style={styles.container}>
-        <KeyboardAvoidingView behavior="padding" enabled>
-        	{
-            this.state.fontLoaded ? (
-              <Animatable.Text animation="zoomIn" iterationCount={1} style={styles.titulo}>
-              	Bem vindo, { primeiroNome }.
-              </Animatable.Text>
-            ) : null
-          }
-          {
-            this.state.fontLoaded ? (
-              <Animatable.Text animation="zoomIn" iterationCount={1} style={styles.regras}>
-              	Atenção! Só é possível responder cada pergunta uma única vez.
-              </Animatable.Text>
-            ) : null
-          }
-          <Animatable.View animation="zoomIn" iterationCount={1} 
-          	style={{marginTop: 40, justifyContent: 'center', alignItems: 'center'}}>
-            <TouchableOpacity style={styles.botaoLogar} onPress={this.onPress}>
-              <Text h5 style={styles.tituloLogar}>Iniciar</Text>
-            </TouchableOpacity>
-          </Animatable.View>
-        </KeyboardAvoidingView>
+      	{
+          this.state.fontLoaded ? (
+            <Animatable.Text animation="zoomIn" iterationCount={1} style={styles.titulo}>
+            	Bem vindo, { primeiroNome }.
+            </Animatable.Text>
+          ) : null
+        }
+        {
+          this.state.fontLoaded ? (
+            <Animatable.Text animation="zoomIn" iterationCount={1} style={styles.regras}>
+            	Atenção! O jogo é constituido de 4{"\n"}enigmas sendo possível responder{"\n"}somente cada pergunta uma única vez.
+            </Animatable.Text>
+          ) : null
+        }
+        <Animatable.View animation="zoomIn" iterationCount={1} 
+        	style={{marginTop: 40, justifyContent: 'center', alignItems: 'center'}}>
+          <TouchableOpacity style={styles.botaoIniciar} onPress={ () => { this.onPress(1) } }>
+            <Text h5 style={styles.tituloIniciar}>Iniciar</Text>
+          </TouchableOpacity>
+        </Animatable.View><Animatable.View animation="zoomIn" iterationCount={1} 
+          style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
+          <TouchableOpacity style={styles.botaoVoltar} onPress={ () => { this.onPress(2) } }>
+            <Text h5 style={styles.tituloVoltar}><Icon name="angle-left" size={15} color="white" /> Voltar</Text>
+          </TouchableOpacity>
+        </Animatable.View>
+        
       </LinearGradient>
     );
   }
@@ -83,15 +97,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  tituloLogar: {
+  tituloIniciar: {
     textAlign: 'center',
     color: 'white',
   },
-  botaoLogar: {
+  botaoIniciar: {
     borderRadius: 20,
     borderColor: 'white',
     backgroundColor: 'transparent',
     borderWidth: 1,
+    height: 40,
+    width: 200,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tituloVoltar: {
+    textAlign: 'center',
+    color: 'white',
+  },
+  botaoVoltar: {
+    borderRadius: 20,
+    borderColor: 'white',
+    backgroundColor: 'transparent',
+    borderWidth: 0,
     height: 40,
     width: 200,
     alignItems: 'center',

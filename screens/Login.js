@@ -78,11 +78,17 @@ export default class Login extends Component {
           }
 
           <View style={{width: 260, marginTop: 30}}>
-            <FormInput placeholder={"Username"} style={styles.formulario} 
-                    clearButtonMode={"while-editing"} onChangeText={(username) => this.setState({username})}
+            <FormInput autoFocus={true} placeholder={"Username"} 
+                      ref={(input) => { this.secondTextInput = input; }} style={styles.formulario} 
+                      clearButtonMode={"while-editing"} returnKeyType = { "next" } 
+                      onSubmitEditing={() => { this.secondTextInput.focus(); }}
+                      blurOnSubmit={false} onChangeText={(username) => this.setState({username})}
             />
             <FormInput placeholder={"Senha"} style={styles.formulario}
-                      clearButtonMode={"while-editing"} clearTextOnFocus={true} secureTextEntry={true} 
+                      clearButtonMode={"while-editing"} clearTextOnFocus={true} 
+                      ref={(input) => { this.secondTextInput = input; }} 
+                      returnKeyType = { "send" } secureTextEntry={true} 
+                      onSubmitEditing={this.onPress}
                       onChangeText={(senha) => this.setState({senha})}
             />
           </View>
