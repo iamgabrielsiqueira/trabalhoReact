@@ -2,8 +2,10 @@ import axios from 'axios';
 import React, {Component} from 'react';
 import { LinearGradient, Font } from 'expo';
 import { FormLabel, Button, Text, FormInput, FormValidationMessage } from 'react-native-elements'
-import { StyleSheet, View, TextInput, KeyboardAvoidingView, AlertIOS, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TextInput, KeyboardAvoidingView, AlertIOS, TouchableOpacity, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import {Keyboard} from 'react-native'
+var DismissKeyboard = require('dismissKeyboard');
 
 export default class Login extends Component {
 
@@ -71,27 +73,28 @@ export default class Login extends Component {
 
           {
             this.state.fontLoaded ? (
+              <TouchableWithoutFeedback onPress={ () => { DismissKeyboard() } }>
               <Animatable.Text animation="pulse" 
               iterationCount="infinite" direction="alternate" 
               style={styles.titulo}>ENIGMA</Animatable.Text>
+              </TouchableWithoutFeedback>
             ) : null
           }
-
-          <View style={{width: 260, marginTop: 30}}>
-            <FormInput autoFocus={true} placeholder={"Username"} 
-                      ref={(input) => { this.secondTextInput = input; }} style={styles.formulario} 
-                      clearButtonMode={"while-editing"} returnKeyType = { "next" } 
-                      onSubmitEditing={() => { this.secondTextInput.focus(); }}
-                      blurOnSubmit={false} onChangeText={(username) => this.setState({username})}
-            />
-            <FormInput placeholder={"Senha"} style={styles.formulario}
-                      clearButtonMode={"while-editing"} clearTextOnFocus={true} 
-                      ref={(input) => { this.secondTextInput = input; }} 
-                      returnKeyType = { "send" } secureTextEntry={true} 
-                      onSubmitEditing={this.onPress}
-                      onChangeText={(senha) => this.setState({senha})}
-            />
-          </View>
+            <View style={{width: 260, marginTop: 30}}>
+              <FormInput autoFocus={true} placeholder={"Username"} 
+                        ref={(input) => { this.secondTextInput = input; }} style={styles.formulario} 
+                        clearButtonMode={"while-editing"} returnKeyType = { "next" } 
+                        onSubmitEditing={() => { this.secondTextInput.focus(); }}
+                        blurOnSubmit={false} onChangeText={(username) => this.setState({username})}
+              />
+              <FormInput placeholder={"Senha"} style={styles.formulario}
+                        clearButtonMode={"while-editing"} clearTextOnFocus={true} 
+                        ref={(input) => { this.secondTextInput = input; }} 
+                        returnKeyType = { "send" } secureTextEntry={true} 
+                        onSubmitEditing={this.onPress}
+                        onChangeText={(senha) => this.setState({senha})}
+              />
+            </View>
           <View style={{marginTop: 40, justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity style={styles.botaoLogar} onPress={this.onPress}>
               <Text h5 style={styles.tituloLogar}>Logar</Text>

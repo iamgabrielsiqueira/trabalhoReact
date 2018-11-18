@@ -5,7 +5,7 @@ import {StyleSheet, Text, View, Image, TouchableOpacity, Alert} from 'react-nati
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default class Enigma1 extends Component {
+export default class Enigma2 extends Component {
 
   constructor(props) {
     super(props);
@@ -61,7 +61,7 @@ export default class Enigma1 extends Component {
   }
 
   navigate(id) {
-    this.props.navigation.navigate('Enigma2', id);
+    this.props.navigation.navigate('Enigma3', id);
   }
 
   render() {
@@ -69,14 +69,13 @@ export default class Enigma1 extends Component {
     const id = this.props.navigation.state.params;
 
     return (
-      <LinearGradient colors={['#CAD3C8', '#F8EFBA']} style={styles.container}>
+      <LinearGradient colors={['#CAD3C8', '#D6A2E8']} style={styles.container}>
         {
           this.state.fontLoaded ? (
-            <LinearGradient colors={['#182C61', '#3B3B98']} style={styles.enigma}>
+            <LinearGradient colors={['#6D214F', '#B33771']} style={styles.enigma}>
               <Animatable.View animation="zoomIn" iterationCount={1} style={styles.enigma}>
                 <Text style={styles.pergunta}>
-                Um taco e uma bola de baseball custam juntos R$1.10. 
-                O taco custa um dólar a mais que a bola. Quanto custa a bola?
+                Três médicos têm um irmão chamado Sérgio, mas Sérgio não tem irmãos. Como é possível?
                 </Text>
               </Animatable.View>
             </LinearGradient>
@@ -87,7 +86,7 @@ export default class Enigma1 extends Component {
             <Animatable.View animation="zoomIn" iterationCount={1} 
               style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
               <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(1, id) } }>
-                <Text h5 style={styles.tituloResposta}> R${this.state.dados[0].resp_a} </Text>
+                <Text h5 style={styles.tituloResposta}>{this.state.dados[1].resp_a} </Text>
               </TouchableOpacity>
             </Animatable.View>
           ) : null
@@ -97,7 +96,7 @@ export default class Enigma1 extends Component {
             <Animatable.View animation="zoomIn" iterationCount={1} 
               style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
               <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(2, id) } }>
-                <Text h5 style={styles.tituloResposta}> R${this.state.dados[0].resp_b} </Text>
+                <Text h5 style={styles.tituloResposta}>{this.state.dados[1].resp_b} </Text>
               </TouchableOpacity>
             </Animatable.View>
           ) : null
@@ -107,7 +106,7 @@ export default class Enigma1 extends Component {
             <Animatable.View animation="zoomIn" iterationCount={1} 
               style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
               <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(3, id) } }>
-                <Text h5 style={styles.tituloResposta}> R${this.state.dados[0].resp_c} </Text>
+                <Text h5 style={styles.tituloResposta}>{this.state.dados[1].resp_c} </Text>
               </TouchableOpacity>
             </Animatable.View>
           ) : null
@@ -147,11 +146,11 @@ const styles = StyleSheet.create({
   },
   tituloResposta: {
     textAlign: 'center',
-    color: '#3B3B98',
+    color: '#B33771',
   },
   botaoResponder: {
     borderRadius: 20,
-    borderColor: '#3B3B98',
+    borderColor: '#B33771',
     backgroundColor: 'transparent',
     borderWidth: 1,
     height: 40,

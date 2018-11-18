@@ -37,14 +37,14 @@ export default class Regras extends Component {
     });
   }
 
-  onPress(val) {
+  onPress(val, id) {
     switch(val) {
       case 1:
-        console.log("iniciar");
-        this.props.navigation.navigate('Enigma1');
+        //console.log("iniciar");
+        this.props.navigation.navigate('Enigma1', id);
       break;
       case 2:
-        console.log("voltar");
+        //console.log("voltar");
         this.props.navigation.navigate('Main');
       break;
     }
@@ -75,7 +75,7 @@ export default class Regras extends Component {
         }
         <Animatable.View animation="zoomIn" iterationCount={1} 
         	style={{marginTop: 40, justifyContent: 'center', alignItems: 'center'}}>
-          <TouchableOpacity style={styles.botaoIniciar} onPress={ () => { this.onPress(1) } }>
+          <TouchableOpacity style={styles.botaoIniciar} onPress={ () => { this.onPress(1, dados.id) } }>
             <Text h5 style={styles.tituloIniciar}>Iniciar</Text>
           </TouchableOpacity>
         </Animatable.View><Animatable.View animation="zoomIn" iterationCount={1} 
