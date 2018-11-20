@@ -5,7 +5,7 @@ import {StyleSheet, Text, View, Image, TouchableOpacity, Alert} from 'react-nati
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default class Enigma3 extends Component {
+export default class Enigma4 extends Component {
 
   constructor(props) {
     super(props);
@@ -61,7 +61,7 @@ export default class Enigma3 extends Component {
   }
 
   navigate(id) {
-    this.props.navigation.navigate('Enigma4', id);
+    this.props.navigation.navigate('Enigma1', id);
   }
 
   render() {
@@ -75,10 +75,9 @@ export default class Enigma3 extends Component {
             <LinearGradient colors={['#FEA47F', '#F97F51']} style={styles.enigma}>
               <Animatable.View animation="zoomIn" iterationCount={1} style={styles.enigma}>
                 <Text style={styles.pergunta}>
-                Qual porta você deve escolher para sobreviver?{"\n"}
-                1 - Aqui há um assasino.{"\n"}
-                2 - Aqui há um leão que não come há um ano.{"\n"}
-                3 - Aqui há um incendio.
+                Um homem roubou R$100 do caixa de uma loja, sem o dono perceber. 
+                Cinco minutos depois, voltou e comprou R$70 em roupas, usando a mesma nota de R$100.
+                O dono lhe devolveu R$30 de troco. Quanto o dono da loja perdeu?
                 </Text>
               </Animatable.View>
             </LinearGradient>
@@ -89,7 +88,7 @@ export default class Enigma3 extends Component {
             <Animatable.View animation="zoomIn" iterationCount={1} 
               style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
               <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(1, id) } }>
-                <Text h5 style={styles.tituloResposta}>{this.state.dados[2].resp_a} </Text>
+                <Text h5 style={styles.tituloResposta}>{this.state.dados[3].resp_a} </Text>
               </TouchableOpacity>
             </Animatable.View>
           ) : null
@@ -99,7 +98,7 @@ export default class Enigma3 extends Component {
             <Animatable.View animation="zoomIn" iterationCount={1} 
               style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
               <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(2, id) } }>
-                <Text h5 style={styles.tituloResposta}>{this.state.dados[2].resp_b} </Text>
+                <Text h5 style={styles.tituloResposta}>{this.state.dados[3].resp_b} </Text>
               </TouchableOpacity>
             </Animatable.View>
           ) : null
@@ -109,7 +108,7 @@ export default class Enigma3 extends Component {
             <Animatable.View animation="zoomIn" iterationCount={1} 
               style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
               <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(3, id) } }>
-                <Text h5 style={styles.tituloResposta}>{this.state.dados[2].resp_c} </Text>
+                <Text h5 style={styles.tituloResposta}>{this.state.dados[3].resp_c} </Text>
               </TouchableOpacity>
             </Animatable.View>
           ) : null

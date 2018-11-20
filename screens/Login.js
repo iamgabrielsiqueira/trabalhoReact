@@ -88,7 +88,7 @@ export default class Login extends Component {
                         blurOnSubmit={false} onChangeText={(username) => this.setState({username})}
               />
               <FormInput placeholder={"Senha"} style={styles.formulario}
-                        clearButtonMode={"while-editing"} clearTextOnFocus={true} 
+                        clearButtonMode={"while-editing"} 
                         ref={(input) => { this.secondTextInput = input; }} 
                         returnKeyType = { "send" } secureTextEntry={true} 
                         onSubmitEditing={this.onPress}

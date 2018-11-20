@@ -14,6 +14,7 @@ import Regras from './screens/Regras';
 import Enigma1 from './screens/Enigma1';
 import Enigma2 from './screens/Enigma2';
 import Enigma3 from './screens/Enigma3';
+import Enigma4 from './screens/Enigma4';
 
 export default createStackNavigator(
   {
@@ -32,6 +33,9 @@ export default createStackNavigator(
     'Enigma3' : {
       screen : Enigma3
     },
+    'Enigma4' : {
+      screen : Enigma4
+    }
   },
   {
     headerMode: 'none',
