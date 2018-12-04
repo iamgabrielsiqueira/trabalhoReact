@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, {Component} from 'react';
 import { LinearGradient, Font } from 'expo';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity, FlatList, SafeAreaView, Dimensions} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -51,40 +51,61 @@ export default class Regras extends Component {
   }
 
   render() {
-    const { dados } = this.props.navigation.state.params;
+    // const { dados } = this.props.navigation.state.params;
 
-    var nome = this.titleize(dados.nome);
-    var divisao = nome.split(" ");
-    var primeiroNome = divisao[0];
+    // var nome = this.titleize(dados.nome);
+    // var divisao = nome.split(" ");
+    // var primeiroNome = divisao[0];
+
+    const largura = (Dimensions.get('window').width) - 80;
 
     return (
       <LinearGradient colors={['#F8EFBA', '#fe8b8a']} style={styles.container}>
-      	{
-          this.state.fontLoaded ? (
-            <Animatable.Text animation="zoomIn" iterationCount={1} style={styles.titulo}>
-            	Bem vindo, { primeiroNome }.
-            </Animatable.Text>
-          ) : null
-        }
+
         {
           this.state.fontLoaded ? (
-            <Animatable.Text animation="zoomIn" iterationCount={1} style={styles.regras}>
-            	Atenção! O jogo é constituido de 4{"\n"}enigmas sendo possível responder{"\n"}somente cada pergunta uma única vez.
-            </Animatable.Text>
+            <Animatable.Text style={styles.titulo} animation="zoomIn" iterationCount={1}>Bem vindo, Gabriel</Animatable.Text>
           ) : null
         }
-        <Animatable.View animation="zoomIn" iterationCount={1} 
-        	style={{marginTop: 40, justifyContent: 'center', alignItems: 'center'}}>
-          <TouchableOpacity style={styles.botaoIniciar} onPress={ () => { this.onPress(1, dados.id) } }>
-            <Text h5 style={styles.tituloIniciar}>Iniciar</Text>
-          </TouchableOpacity>
-        </Animatable.View><Animatable.View animation="zoomIn" iterationCount={1} 
-          style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
-          <TouchableOpacity style={styles.botaoVoltar} onPress={ () => { this.onPress(2) } }>
-            <Text h5 style={styles.tituloVoltar}><Icon name="angle-left" size={15} color="white" /> Voltar</Text>
-          </TouchableOpacity>
+
+        {
+          this.state.fontLoaded ? (
+            <View width={largura} alignItems={'center'} justifyContent={'center'} marginTop={10} marginBottom={20}>
+              <Animatable.Text style={styles.regras} animation="zoomIn" iterationCount={1} textAlign={'center'}>
+                Atenção! O jogo é constituido de 4 enigmas sendo possível responder somente cada pergunta uma única vez.
+              </Animatable.Text>
+            </View>
+          ) : null
+        }
+
+        <Animatable.View animation="zoomIn" iterationCount={1} style={{flexDirection: 'row'}} width={largura} alignItems={'center'} justifyContent={'center'}>
+          <View style={{margin:2, flex: 1}} alignItems={'center'} justifyContent={'center'}>
+            <Icon name="question" size={50} color="white" />
+            <Text color={'white'}>Enigmas</Text>
+          </View>
+          <View style={{margin:2, flex: 1}} alignItems={'center'} justifyContent={'center'}>
+            <Icon name="trophy" size={50} color="white" />
+            <Text color={'white'}>Ranking</Text>
+          </View>
         </Animatable.View>
-        
+
+        <Animatable.View animation="zoomIn" iterationCount={1} style={{flexDirection: 'row'}} width={largura} alignItems={'center'} justifyContent={'center'}>
+          <View style={{margin:2, flex: 1}} alignItems={'center'} justifyContent={'center'}>
+            <Icon name="user" size={50} color="white" />
+            <Text color={'white'}>Usuários</Text>
+          </View>
+          <View style={{margin:2, flex: 1}} alignItems={'center'} justifyContent={'center'}>
+            <Icon name="close" size={50} color="white" />
+            <Text color={'white'}>Logout</Text>
+          </View>
+        </Animatable.View>
+
+        <Animatable.View animation="zoomIn" iterationCount={1} style={{marginTop: 30, justifyContent: 'center', alignItems: 'center'}}>
+            <TouchableOpacity style={styles.botaoIniciar} onPress={ () => { this.onPress(1, dados.id) } }>
+              <Text h5 style={styles.tituloIniciar}>Iniciar</Text>
+            </TouchableOpacity>
+        </Animatable.View>
+
       </LinearGradient>
     );
   }
@@ -93,7 +114,7 @@ export default class Regras extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -110,10 +131,6 @@ const styles = StyleSheet.create({
     width: 200,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  tituloVoltar: {
-    textAlign: 'center',
-    color: 'white',
   },
   botaoVoltar: {
     borderRadius: 20,
