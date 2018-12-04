@@ -18,15 +18,12 @@ import Enigma4 from './screens/Enigma4';
 
 export default createStackNavigator(
   {
-    // 'Main' : {
-    //     screen : Login
-    // },
     'Main' : {
-        screen : Regras
+        screen : Login
     },
-    // 'Regras' : {
-    //   screen : Regras
-    // },
+    'Regras' : {
+      screen : Regras
+    },
     'Enigma1' : {
       screen : Enigma1
     },

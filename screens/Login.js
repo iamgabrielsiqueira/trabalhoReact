@@ -68,7 +68,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <LinearGradient colors={['#F8EFBA', '#fe8b8a']} style={styles.container}>
+      <LinearGradient colors={['#34495e', '#2c3e50']} style={styles.container}>
         <KeyboardAvoidingView behavior="padding" enabled>
 
           {
@@ -80,26 +80,31 @@ export default class Login extends Component {
               </TouchableWithoutFeedback>
             ) : null
           }
-            <View style={{width: 260, marginTop: 30}}>
-              <FormInput autoFocus={true} placeholder={"Username"} 
-                        ref={(input) => { this.secondTextInput = input; }} style={styles.formulario} 
-                        clearButtonMode={"while-editing"} returnKeyType = { "next" } 
-                        onSubmitEditing={() => { this.secondTextInput.focus(); }}
-                        blurOnSubmit={false} onChangeText={(username) => this.setState({username})}
-              />
-              <FormInput placeholder={"Senha"} style={styles.formulario}
-                        clearButtonMode={"while-editing"} 
-                        ref={(input) => { this.secondTextInput = input; }} 
-                        returnKeyType = { "send" } secureTextEntry={true} 
-                        onSubmitEditing={this.onPress}
-                        onChangeText={(senha) => this.setState({senha})}
-              />
-            </View>
+
+          <View style={{width: 260, marginTop: 30}}>
+            <FormInput 
+              autoFocus={true} placeholder={"Username"} placeholderTextColor={'white'}
+              ref={(input) => { this.secondTextInput = input; }} style={styles.formulario} 
+              clearButtonMode={"while-editing"} returnKeyType = { "next" } 
+              onSubmitEditing={() => { this.secondTextInput.focus(); }}
+              blurOnSubmit={false} onChangeText={(username) => this.setState({username})}
+            />
+            <FormInput 
+              placeholder={"Senha"} placeholderTextColor={'white'} style={styles.formulario}
+              clearButtonMode={"while-editing"} 
+              ref={(input) => { this.secondTextInput = input; }} 
+              returnKeyType = { "send" } secureTextEntry={true} 
+              onSubmitEditing={this.onPress}
+              onChangeText={(senha) => this.setState({senha})}
+            />
+          </View>
+
           <View style={{marginTop: 40, justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity style={styles.botaoLogar} onPress={this.onPress}>
               <Text h5 style={styles.tituloLogar}>Logar</Text>
             </TouchableOpacity>
           </View>
+
         </KeyboardAvoidingView>
       </LinearGradient>
     );

@@ -44,35 +44,48 @@ export default class Regras extends Component {
         this.props.navigation.navigate('Enigma1', id);
       break;
       case 2:
-        //console.log("voltar");
+        //console.log("enigmas");
+        this.props.navigation.navigate('Main');
+      break;
+      case 3:
+        //console.log("ranking");
+        this.props.navigation.navigate('Main');
+      break;
+      case 4:
+        //console.log("usuarios");
+        this.props.navigation.navigate('Main');
+      break;
+      case 5:
+        //console.log("logout");
         this.props.navigation.navigate('Main');
       break;
     }
   }
 
   render() {
-    // const { dados } = this.props.navigation.state.params;
 
-    // var nome = this.titleize(dados.nome);
-    // var divisao = nome.split(" ");
-    // var primeiroNome = divisao[0];
+    const { dados } = this.props.navigation.state.params;
+
+    var nome = this.titleize(dados.nome);
+    var divisao = nome.split(" ");
+    var primeiroNome = divisao[0];
 
     const largura = (Dimensions.get('window').width) - 80;
 
     return (
-      <LinearGradient colors={['#F8EFBA', '#fe8b8a']} style={styles.container}>
+      <LinearGradient colors={['#34495e', '#2c3e50']} style={styles.container}>
 
         {
           this.state.fontLoaded ? (
-            <Animatable.Text style={styles.titulo} animation="zoomIn" iterationCount={1}>Bem vindo, Gabriel</Animatable.Text>
+            <Animatable.Text style={styles.titulo} animation="zoomIn" iterationCount={1}>Bem vindo, { primeiroNome }.</Animatable.Text>
           ) : null
         }
 
         {
           this.state.fontLoaded ? (
             <View width={largura} alignItems={'center'} justifyContent={'center'} marginTop={10} marginBottom={20}>
-              <Animatable.Text style={styles.regras} animation="zoomIn" iterationCount={1} textAlign={'center'}>
-                Atenção! O jogo é constituido de 4 enigmas sendo possível responder somente cada pergunta uma única vez.
+              <Animatable.Text style={styles.regras} animation="zoomIn" iterationCount={1} textAlign={'justify'}>
+                O jogo é constituído de 4 enigmas sendo possível responder somente cada pergunta uma única vez.
               </Animatable.Text>
             </View>
           ) : null
@@ -80,23 +93,31 @@ export default class Regras extends Component {
 
         <Animatable.View animation="zoomIn" iterationCount={1} style={{flexDirection: 'row'}} width={largura} alignItems={'center'} justifyContent={'center'}>
           <View style={{margin:2, flex: 1}} alignItems={'center'} justifyContent={'center'}>
-            <Icon name="question" size={50} color="white" />
-            <Text color={'white'}>Enigmas</Text>
+            <TouchableOpacity onPress={ () => { this.onPress(2, dados.id) } }>
+              <Icon name="question" size={50} color="white" />
+            </TouchableOpacity>
+            <Text style={{color: 'white'}}>Enigmas</Text>
           </View>
           <View style={{margin:2, flex: 1}} alignItems={'center'} justifyContent={'center'}>
-            <Icon name="trophy" size={50} color="white" />
-            <Text color={'white'}>Ranking</Text>
+            <TouchableOpacity onPress={ () => { this.onPress(3, dados.id) } }>
+              <Icon name="trophy" size={50} color="white" />
+            </TouchableOpacity>
+            <Text style={{color: 'white'}}>Ranking</Text>
           </View>
         </Animatable.View>
 
-        <Animatable.View animation="zoomIn" iterationCount={1} style={{flexDirection: 'row'}} width={largura} alignItems={'center'} justifyContent={'center'}>
+        <Animatable.View animation="zoomIn" iterationCount={1} style={{flexDirection: 'row'}} width={largura} alignItems={'center'} justifyContent={'center'} marginTop={5}>
           <View style={{margin:2, flex: 1}} alignItems={'center'} justifyContent={'center'}>
-            <Icon name="user" size={50} color="white" />
-            <Text color={'white'}>Usuários</Text>
+            <TouchableOpacity onPress={ () => { this.onPress(4, dados.id) } }>
+              <Icon name="user" size={50} color="white" />
+            </TouchableOpacity>
+            <Text style={{color: 'white'}}>Usuários</Text>
           </View>
           <View style={{margin:2, flex: 1}} alignItems={'center'} justifyContent={'center'}>
-            <Icon name="close" size={50} color="white" />
-            <Text color={'white'}>Logout</Text>
+            <TouchableOpacity onPress={ () => { this.onPress(5, dados.id) } }>
+              <Icon name="close" size={50} color="white" />
+            </TouchableOpacity>
+            <Text style={{color: 'white'}}>Logout</Text>
           </View>
         </Animatable.View>
 
@@ -144,14 +165,14 @@ const styles = StyleSheet.create({
   },
   titulo: {
     textAlign: 'center',
-    color: 'white',
+    color: '#ecf0f1',
     marginBottom: 30,
     fontFamily: 'raleway-medium',
     fontSize: 25,
   },
   regras: {
     textAlign: 'center',
-    color: 'white',
+    color: '#bdc3c7',
     marginTop: 2,
     fontFamily: 'raleway-light',
     fontSize: 15,
