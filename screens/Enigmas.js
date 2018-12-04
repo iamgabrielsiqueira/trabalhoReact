@@ -5,26 +5,19 @@ import {StyleSheet, Text, View, Image, TouchableOpacity, FlatList, SafeAreaView,
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default class Regras extends Component {
+export default class Enigmas extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
     	fontLoaded: false,
+      carregando : false,
+      dados: [],
+      error: false,
+      carregado: false,
     };
   }
-
-  titleize(text) {
-    var words = text.toLowerCase().split(" ");
-
-    for (var a = 0; a < words.length; a++) {
-        var w = words[a];
-        words[a] = w[0].toUpperCase() + w.slice(1);
-    }
-
-    return words.join(" ");
-	}
 
   async componentDidMount() {
     await Font.loadAsync({
@@ -38,28 +31,26 @@ export default class Regras extends Component {
   }
 
   onPress(val, dados) {
-
     switch(val) {
       case 1:
-        //console.log("iniciar");
-        this.props.navigation.navigate('Enigma1', { dados });
+        //console.log("voltar");
+        this.props.navigation.navigate('Regras', { dados });
       break;
       case 2:
-        //console.log("enigmas");
-        //const { enigmas } = this.getEnigmas();
-        this.props.navigation.navigate('Enigmas', { dados });
+        //console.log("enigma 1");
+        this.props.navigation.navigate('Enigma1', { dados });
       break;
       case 3:
-        //console.log("ranking");
-        this.props.navigation.navigate('Main');
+        //console.log("enigma 2");
+        this.props.navigation.navigate('Enigma2', { dados });
       break;
       case 4:
-        //console.log("usuarios");
-        this.props.navigation.navigate('Main');
+        //console.log("enigma 3");
+        this.props.navigation.navigate('Enigma3', { dados });
       break;
       case 5:
-        //console.log("logout");
-        this.props.navigation.navigate('Main');
+        //console.log("enigma 4");
+        this.props.navigation.navigate('Enigma4', { dados });
       break;
     }
   }
@@ -67,11 +58,6 @@ export default class Regras extends Component {
   render() {
 
     const { dados } = this.props.navigation.state.params;
-
-    var nome = this.titleize(dados.nome);
-    var divisao = nome.split(" ");
-    var primeiroNome = divisao[0];
-
     const largura = (Dimensions.get('window').width) - 80;
 
     return (
@@ -79,17 +65,7 @@ export default class Regras extends Component {
 
         {
           this.state.fontLoaded ? (
-            <Animatable.Text style={styles.titulo} animation="zoomIn" iterationCount={1}>Bem vindo, { primeiroNome }.</Animatable.Text>
-          ) : null
-        }
-
-        {
-          this.state.fontLoaded ? (
-            <View width={largura} alignItems={'center'} justifyContent={'center'} marginTop={10} marginBottom={20}>
-              <Animatable.Text style={styles.regras} animation="zoomIn" iterationCount={1} textAlign={'justify'}>
-                O jogo é constituído de 4 enigmas sendo possível responder somente cada pergunta uma única vez.
-              </Animatable.Text>
-            </View>
+            <Animatable.Text style={styles.titulo} animation="zoomIn" iterationCount={1}>Enigmas</Animatable.Text>
           ) : null
         }
 
@@ -98,34 +74,34 @@ export default class Regras extends Component {
             <TouchableOpacity onPress={ () => { this.onPress(2, dados) } }>
               <Icon name="question" size={50} color="white" />
             </TouchableOpacity>
-            <Text style={{color: 'white'}}>Enigmas</Text>
+            <Text style={{color: 'white'}}>Enigma 1</Text>
           </View>
           <View style={{margin:2, flex: 1}} alignItems={'center'} justifyContent={'center'}>
             <TouchableOpacity onPress={ () => { this.onPress(3, dados) } }>
-              <Icon name="trophy" size={50} color="white" />
+              <Icon name="question" size={50} color="white" />
             </TouchableOpacity>
-            <Text style={{color: 'white'}}>Ranking</Text>
+            <Text style={{color: 'white'}}>Enigma 2</Text>
           </View>
         </Animatable.View>
 
         <Animatable.View animation="zoomIn" iterationCount={1} style={{flexDirection: 'row'}} width={largura} alignItems={'center'} justifyContent={'center'} marginTop={5}>
           <View style={{margin:2, flex: 1}} alignItems={'center'} justifyContent={'center'}>
             <TouchableOpacity onPress={ () => { this.onPress(4, dados) } }>
-              <Icon name="user" size={50} color="white" />
+              <Icon name="question" size={50} color="white" />
             </TouchableOpacity>
-            <Text style={{color: 'white'}}>Usuários</Text>
+            <Text style={{color: 'white'}}>Enigma 3</Text>
           </View>
           <View style={{margin:2, flex: 1}} alignItems={'center'} justifyContent={'center'}>
             <TouchableOpacity onPress={ () => { this.onPress(5, dados) } }>
-              <Icon name="close" size={50} color="white" />
+              <Icon name="question" size={50} color="white" />
             </TouchableOpacity>
-            <Text style={{color: 'white'}}>Logout</Text>
+            <Text style={{color: 'white'}}>Enigma 4</Text>
           </View>
         </Animatable.View>
 
         <Animatable.View animation="zoomIn" iterationCount={1} style={{marginTop: 30, justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity style={styles.botaoIniciar} onPress={ () => { this.onPress(1, dados) } }>
-              <Text h5 style={styles.tituloIniciar}>Iniciar</Text>
+              <Text h5 style={styles.tituloIniciar}>Voltar</Text>
             </TouchableOpacity>
         </Animatable.View>
 

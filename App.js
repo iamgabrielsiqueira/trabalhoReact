@@ -11,6 +11,8 @@ import { createStackNavigator } from 'react-navigation';
 
 import Login from './screens/Login';
 import Regras from './screens/Regras';
+import Enigmas from './screens/Enigmas';
+
 import Enigma1 from './screens/Enigma1';
 import Enigma2 from './screens/Enigma2';
 import Enigma3 from './screens/Enigma3';
@@ -23,6 +25,9 @@ export default createStackNavigator(
     },
     'Regras' : {
       screen : Regras
+    },
+    'Enigmas' : {
+      screen : Enigmas
     },
     'Enigma1' : {
       screen : Enigma1

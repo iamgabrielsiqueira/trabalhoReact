@@ -48,44 +48,44 @@ export default class Enigma2 extends Component {
     }, 1000);
   }
 
-  onPress(val, id) {
+  onPress(val, dados) {
     Alert.alert(
       'Mensagem',
       'Deseja confirmar sua resposta?',
       [
         {text: 'Cancelar', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        {text: 'Confirmar', onPress: () => this.navigate(id)},
+        {text: 'Confirmar', onPress: () => this.navigate(dados)},
       ],
       { cancelable: false }
     )
   }
 
-  navigate(id) {
-    this.props.navigation.navigate('Enigma3', id);
+  navigate(dados) {
+    this.props.navigation.navigate('Enigma3', { dados });
   }
 
   render() {
 
-    const id = this.props.navigation.state.params;
+    const { dados } = this.props.navigation.state.params;
 
     return (
-      <LinearGradient colors={['#CAD3C8', '#D6A2E8']} style={styles.container}>
+      <LinearGradient colors={['#ecf0f1', '#bdc3c7']} style={styles.container}>
         {
           this.state.fontLoaded ? (
-            <LinearGradient colors={['#6D214F', '#B33771']} style={styles.enigma}>
+            <View style={styles.enigma}>
               <Animatable.View animation="zoomIn" iterationCount={1} style={styles.enigma}>
                 <Text style={styles.pergunta}>
                 Três médicos têm um irmão chamado Sérgio, mas Sérgio não tem irmãos. Como é possível?
                 </Text>
               </Animatable.View>
-            </LinearGradient>
+            </View>
           ) : null
         }
         {
           this.state.carregado ? (
             <Animatable.View animation="zoomIn" iterationCount={1} 
               style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
-              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(1, id) } }>
+              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(1, dados) } }>
                 <Text h5 style={styles.tituloResposta}>{this.state.dados[1].resp_a} </Text>
               </TouchableOpacity>
             </Animatable.View>
@@ -95,7 +95,7 @@ export default class Enigma2 extends Component {
           this.state.carregado ? (
             <Animatable.View animation="zoomIn" iterationCount={1} 
               style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
-              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(2, id) } }>
+              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(2, dados) } }>
                 <Text h5 style={styles.tituloResposta}>{this.state.dados[1].resp_b} </Text>
               </TouchableOpacity>
             </Animatable.View>
@@ -105,7 +105,7 @@ export default class Enigma2 extends Component {
           this.state.carregado ? (
             <Animatable.View animation="zoomIn" iterationCount={1} 
               style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
-              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(3, id) } }>
+              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(3, dados) } }>
                 <Text h5 style={styles.tituloResposta}>{this.state.dados[1].resp_c} </Text>
               </TouchableOpacity>
             </Animatable.View>
@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#16a085',
   },
   pergunta: {
     textAlign: 'center',
@@ -146,11 +147,11 @@ const styles = StyleSheet.create({
   },
   tituloResposta: {
     textAlign: 'center',
-    color: '#B33771',
+    color: '#16a085',
   },
   botaoResponder: {
     borderRadius: 20,
-    borderColor: '#B33771',
+    borderColor: '#16a085',
     backgroundColor: 'transparent',
     borderWidth: 1,
     height: 40,

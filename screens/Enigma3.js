@@ -48,31 +48,31 @@ export default class Enigma3 extends Component {
     }, 1000);
   }
 
-  onPress(val, id) {
+  onPress(val, dados) {
     Alert.alert(
       'Mensagem',
       'Deseja confirmar sua resposta?',
       [
         {text: 'Cancelar', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        {text: 'Confirmar', onPress: () => this.navigate(id)},
+        {text: 'Confirmar', onPress: () => this.navigate(dados)},
       ],
       { cancelable: false }
     )
   }
 
-  navigate(id) {
-    this.props.navigation.navigate('Enigma4', id);
+  navigate(dados) {
+    this.props.navigation.navigate('Enigma4', { dados });
   }
 
   render() {
 
-    const id = this.props.navigation.state.params;
+    const { dados } = this.props.navigation.state.params;
 
     return (
-      <LinearGradient colors={['#CAD3C8', '#F8EFBA']} style={styles.container}>
+      <LinearGradient colors={['#ecf0f1', '#bdc3c7']} style={styles.container}>
         {
           this.state.fontLoaded ? (
-            <LinearGradient colors={['#FEA47F', '#F97F51']} style={styles.enigma}>
+            <View style={styles.enigma}>
               <Animatable.View animation="zoomIn" iterationCount={1} style={styles.enigma}>
                 <Text style={styles.pergunta}>
                 Qual porta você deve escolher para sobreviver?{"\n"}
@@ -81,14 +81,14 @@ export default class Enigma3 extends Component {
                 3 - Aqui há um incendio.
                 </Text>
               </Animatable.View>
-            </LinearGradient>
+            </View>
           ) : null
         }
         {
           this.state.carregado ? (
             <Animatable.View animation="zoomIn" iterationCount={1} 
               style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
-              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(1, id) } }>
+              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(1, dados) } }>
                 <Text h5 style={styles.tituloResposta}>{this.state.dados[2].resp_a} </Text>
               </TouchableOpacity>
             </Animatable.View>
@@ -98,7 +98,7 @@ export default class Enigma3 extends Component {
           this.state.carregado ? (
             <Animatable.View animation="zoomIn" iterationCount={1} 
               style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
-              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(2, id) } }>
+              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(2, dados) } }>
                 <Text h5 style={styles.tituloResposta}>{this.state.dados[2].resp_b} </Text>
               </TouchableOpacity>
             </Animatable.View>
@@ -108,7 +108,7 @@ export default class Enigma3 extends Component {
           this.state.carregado ? (
             <Animatable.View animation="zoomIn" iterationCount={1} 
               style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
-              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(3, id) } }>
+              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(3, dados) } }>
                 <Text h5 style={styles.tituloResposta}>{this.state.dados[2].resp_c} </Text>
               </TouchableOpacity>
             </Animatable.View>
@@ -133,6 +133,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#c0392b',
   },
   pergunta: {
     textAlign: 'center',
@@ -149,11 +150,11 @@ const styles = StyleSheet.create({
   },
   tituloResposta: {
     textAlign: 'center',
-    color: '#F97F51',
+    color: '#c0392b',
   },
   botaoResponder: {
     borderRadius: 20,
-    borderColor: '#F97F51',
+    borderColor: '#c0392b',
     backgroundColor: 'transparent',
     borderWidth: 1,
     height: 40,
