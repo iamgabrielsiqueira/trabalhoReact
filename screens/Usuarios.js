@@ -1,44 +1,48 @@
 import axios from 'axios';
 import React, {Component} from 'react';
 import { LinearGradient, Font } from 'expo';
-import {StyleSheet, Text, View, Image, TouchableOpacity, FlatList, SafeAreaView, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity, FlatList, SafeAreaView, Dimensions, ImageView, ActivityIndicator} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import ItemList from './../components/ItemList';
 
 export default class Usuarios extends Component {
 
   constructor(props) {
-    super(props);
+      super(props);
 
-    this.state = {
-    	fontLoaded: false,
-      carregando : false,
-      dados: [],
-      error: false,
-      carregado: false,
-    };
+      this.state = {
+          usuarios : [],
+          carregando : false,
+          error : false,
+          visible: false,
+          nome: '',
+          usuarios1 : [],
+          nomes: [],
+          cont: 1
+      };
   }
 
-  async componentDidMount() {
-    await Font.loadAsync({
-      'raleway-light': require('./../assets/fonts/Raleway-Regular.ttf'),
-      'raleway-medium': require('./../assets/fonts/Raleway-Medium.ttf'),
-    });
+  componentDidMount() {
 
-    this.setState({ 
-      fontLoaded: true,
-      carregando: true 
-    });
+    this.setState({ carregando : true });
 
     const url = 'http://gileduardo.com.br/react/api_charadas/rest.php/respostas';
 
     setTimeout(() => {
       axios.get(url).then(response => {
         this.setState({
-          dados : response.data,
+          usuarios : response.data,
           carregando : false,
           carregado : true,
         });
+        for (let userObject of this.state.usuarios) {
+            userObject.id_usuario = cont;
+            this.setState({ usuarios1:[...this.state.usuarios1, userObject]});
+            cont++;
+          }
+        }
       }).catch(error => {
           this.setState({
             carregando : false,
@@ -48,66 +52,27 @@ export default class Usuarios extends Component {
         });
     }, 1000);
 
-    // for (var i = 0; i < this.state.dados.length; i++) {
-    //   console.log('array[' + i + '] = ' + this.state.dados[i].nome);
-    // }
-
-    for (let userObject of this.state.dados) {
-        console.log(userObject.nome);
-    }
-
   }
 
-  onPress(val, dados) {
-    switch(val) {
-      case 1:
-        //console.log("voltar");
-        this.props.navigation.navigate('Regras', { dados });
-      break;
-      case 2:
-        //console.log("enigma 1");
-        this.props.navigation.navigate('Enigma1', { dados });
-      break;
-      case 3:
-        //console.log("enigma 2");
-        this.props.navigation.navigate('Enigma2', { dados });
-      break;
-      case 4:
-        //console.log("enigma 3");
-        this.props.navigation.navigate('Enigma3', { dados });
-      break;
-      case 5:
-        //console.log("enigma 4");
-        this.props.navigation.navigate('Enigma4', { dados });
-      break;
-    }
-  }
+  renderList() {
 
-  createUsers() {
-
-    let table = []
-
-    // Outer loop to create parent
-    for (let i = 0; i < 3; i++) {
-      let children = []
-      //Inner loop to create children
-      for (let j = 0; j < 5; j++) {
-        children.push(<td>{`Column ${j + 1}`}</td>)
-      }
-      //Create the parent and add the children
-      table.push(<tr>{children}</tr>)
+    if(this.state.carregando) {
+      return <ActivityIndicator size={'large'} color={'white'}/>;
     }
 
-    return table
+    if(this.state.error) {
+      return <Text> Ops!!! Algo deu errado!!! =(</Text>;
+    }
+
+    return (
+      <ItemList itens={ this.state.usuarios1 }/>
+    );
+
   }
 
   render() {
 
     //const { dados } = this.props.navigation.state.params;
-
-    /*this.state.dados.forEach(function(valor, chave){
-      console.log(chave, valor);
-    });*/
 
     const largura = (Dimensions.get('window').width) - 80;
 
@@ -120,17 +85,9 @@ export default class Usuarios extends Component {
           ) : null
         }
 
-      <View>
-        <FlatList
-          data={this.state.dados}
-          renderItem={({item}) =>
-          <View>
-            <Text>{item.nome}</Text>
-          </View>
-          }
-          keyExtractor={item => item.nome}
-        />
-      </View>
+        <View style={styles.list}>
+            { this.renderList() }
+        </View>
 
       </LinearGradient>
     );
