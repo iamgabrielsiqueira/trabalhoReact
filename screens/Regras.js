@@ -51,11 +51,11 @@ export default class Regras extends Component {
       break;
       case 3:
         //console.log("ranking");
-        this.props.navigation.navigate('Main');
+        this.props.navigation.navigate('Ranking', { dados });
       break;
       case 4:
         //console.log("usuarios");
-        this.props.navigation.navigate('Main');
+        this.props.navigation.navigate('Usuarios', { dados });
       break;
       case 5:
         //console.log("logout");

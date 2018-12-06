@@ -12,6 +12,8 @@ import { createStackNavigator } from 'react-navigation';
 import Login from './screens/Login';
 import Regras from './screens/Regras';
 import Enigmas from './screens/Enigmas';
+import Ranking from './screens/Ranking';
+import Usuarios from './screens/Usuarios';
 
 import Enigma1 from './screens/Enigma1';
 import Enigma2 from './screens/Enigma2';
@@ -21,7 +23,7 @@ import Enigma4 from './screens/Enigma4';
 export default createStackNavigator(
   {
     'Main' : {
-        screen : Login
+      screen : Usuarios
     },
     'Regras' : {
       screen : Regras
@@ -40,6 +42,12 @@ export default createStackNavigator(
     },
     'Enigma4' : {
       screen : Enigma4
+    },
+    'Ranking' : {
+      screen : Ranking
+    },
+    'Usuarios' : {
+      screen : Usuarios
     }
   },
   {
