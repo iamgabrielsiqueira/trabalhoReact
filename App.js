@@ -5,6 +5,7 @@
   $ npm install --save react-native-elements
   $ npm install react-native-animatable --save
   $ npm install react-native-vector-icons --save
+  $ npm i --save lodash
 */
 
 import { createStackNavigator } from 'react-navigation';
@@ -23,7 +24,7 @@ import Enigma4 from './screens/Enigma4';
 export default createStackNavigator(
   {
     'Main' : {
-      screen : Usuarios
+      screen : Login
     },
     'Regras' : {
       screen : Regras

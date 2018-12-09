@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, {Component} from 'react';
 import { LinearGradient, Font } from 'expo';
-import {StyleSheet, Text, View, Image, TouchableOpacity, FlatList, SafeAreaView, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity, FlatList, SafeAreaView, Dimensions, Alert} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -28,9 +28,33 @@ export default class Enigmas extends Component {
     this.setState({ 
       fontLoaded: true 
     });
+
+    const { dados } = this.props.navigation.state.params;
+
+    const url = 'http://gileduardo.com.br/react/api_charadas/rest.php/respostas/' + dados.id;
+
+    setTimeout(() => {
+      axios.get(url).then(response => {
+        this.setState({
+          dados : response.data,
+          carregando : false,
+          carregado : true,
+        });
+      }).catch(error => {
+          this.setState({
+            carregando : false,
+            error : true,
+            carregado : false
+          });
+        });
+    }, 1000);
+
   }
 
   onPress(val, dados) {
+
+    //console.log(this.state.dados);
+
     switch(val) {
       case 1:
         //console.log("voltar");
@@ -38,6 +62,7 @@ export default class Enigmas extends Component {
       break;
       case 2:
         //console.log("enigma 1");
+        //Alert.alert("Já foi respondida!");
         this.props.navigation.navigate('Enigma1', { dados });
       break;
       case 3:

@@ -17,14 +17,20 @@ export default class Usuarios extends Component {
           carregando : false,
           error : false,
           visible: false,
-          nome: '',
-          usuarios1 : [],
-          nomes: [],
-          cont: 1
+          fontLoaded: false,
       };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+
+    await Font.loadAsync({
+      'raleway-light': require('./../assets/fonts/Raleway-Regular.ttf'),
+      'raleway-medium': require('./../assets/fonts/Raleway-Medium.ttf'),
+    });
+
+    this.setState({ 
+      fontLoaded: true 
+    });
 
     this.setState({ carregando : true });
 
@@ -37,17 +43,11 @@ export default class Usuarios extends Component {
           carregando : false,
           carregado : true,
         });
-        for (let userObject of this.state.usuarios) {
-            userObject.id_usuario = cont;
-            this.setState({ usuarios1:[...this.state.usuarios1, userObject]});
-            cont++;
-          }
-        }
       }).catch(error => {
           this.setState({
             carregando : false,
             error : true,
-            carregado : false
+            carregado : false,
           });
         });
     }, 1000);
@@ -65,14 +65,24 @@ export default class Usuarios extends Component {
     }
 
     return (
-      <ItemList itens={ this.state.usuarios1 }/>
+      <ItemList itens={ this.state.usuarios } style={{flex: 1}}/>
     );
+
+  }
+
+  onPress(val, dados) {
+
+    switch(val) {
+      case 1:
+        this.props.navigation.navigate('Regras', { dados });
+      break;
+    }
 
   }
 
   render() {
 
-    //const { dados } = this.props.navigation.state.params;
+    const { dados } = this.props.navigation.state.params;
 
     const largura = (Dimensions.get('window').width) - 80;
 
@@ -85,8 +95,14 @@ export default class Usuarios extends Component {
           ) : null
         }
 
-        <View style={styles.list}>
-            { this.renderList() }
+        <Animatable.View animation="zoomIn" iterationCount={1} style={{flex: 1, width: largura}}>
+          { this.renderList() }
+        </Animatable.View>
+
+        <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+            <TouchableOpacity style={styles.botaoIniciar} onPress={ () => { this.onPress(1, dados) } }>
+              <Text h5 style={styles.tituloIniciar}>Voltar</Text>
+            </TouchableOpacity>
         </View>
 
       </LinearGradient>
@@ -100,6 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'column',
   },
   tituloIniciar: {
     textAlign: 'center',
@@ -115,28 +132,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  botaoVoltar: {
-    borderRadius: 20,
-    borderColor: 'white',
-    backgroundColor: 'transparent',
-    borderWidth: 0,
-    height: 40,
-    width: 200,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   titulo: {
     textAlign: 'center',
     color: '#ecf0f1',
     marginBottom: 30,
     fontFamily: 'raleway-medium',
     fontSize: 25,
-  },
-  regras: {
-    textAlign: 'center',
-    color: '#bdc3c7',
-    marginTop: 2,
-    fontFamily: 'raleway-light',
-    fontSize: 15,
+    marginTop: 100,
   },
 });

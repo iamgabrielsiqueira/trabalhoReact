@@ -46,6 +46,7 @@ export default class Enigma1 extends Component {
           });
         });
     }, 1000);
+
   }
 
   onPress(val, dados) {
@@ -54,10 +55,43 @@ export default class Enigma1 extends Component {
       'Deseja confirmar sua resposta?',
       [
         {text: 'Cancelar', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        {text: 'Confirmar', onPress: () => this.navigate(dados)},
+        {text: 'Confirmar', onPress: () => this.responder(val, dados)},
       ],
       { cancelable: false }
     )
+  }
+
+  responder(val, dados) {
+
+    const resposta = {
+      id_usuario: dados.id,
+      id_pergunta: 1,
+      resposta: val,
+    };
+
+    axios({ 
+        method: 'post', 
+        url: 'http://www.gileduardo.com.br/react/api_charadas/rest.php/responder/',
+        headers:{
+          "Content-Type": "application/json" 
+        }, 
+        data: resposta
+      }).then(response => {
+        let result = response.data.id;
+        if(result == "-1") {
+          alert('Parametro nulo!');
+        } else if(result == "-2") {
+          alert('Usuario, charada ou resposta nula!');
+        } else if(result == "-3") {
+          alert('A pergunta já foi respondida anteriormente!');
+        } else {
+          alert('Confirmado!');
+        }
+      }).catch(error => {
+        alert('Houve um erro inesperado!!!');
+      });
+
+    this.navigate(dados)
   }
 
   navigate(dados) {
@@ -88,7 +122,7 @@ export default class Enigma1 extends Component {
           this.state.carregado ? (
             <Animatable.View animation="zoomIn" iterationCount={1} 
               style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
-              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(1, dados) } }>
+              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress("A", dados) } }>
                 <Text h5 style={styles.tituloResposta}> R${this.state.dados[0].resp_a} </Text>
               </TouchableOpacity>
             </Animatable.View>
@@ -98,7 +132,7 @@ export default class Enigma1 extends Component {
           this.state.carregado ? (
             <Animatable.View animation="zoomIn" iterationCount={1} 
               style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
-              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(2, dados) } }>
+              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress("B", dados) } }>
                 <Text h5 style={styles.tituloResposta}> R${this.state.dados[0].resp_b} </Text>
               </TouchableOpacity>
             </Animatable.View>
@@ -108,7 +142,7 @@ export default class Enigma1 extends Component {
           this.state.carregado ? (
             <Animatable.View animation="zoomIn" iterationCount={1} 
               style={{marginTop: 10, justifyContent: 'center', alignItems: 'center'}}>
-              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress(3, dados) } }>
+              <TouchableOpacity style={styles.botaoResponder} onPress={ () => { this.onPress("C", dados) } }>
                 <Text h5 style={styles.tituloResposta}> R${this.state.dados[0].resp_c} </Text>
               </TouchableOpacity>
             </Animatable.View>
